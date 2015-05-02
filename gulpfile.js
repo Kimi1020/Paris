@@ -5,6 +5,7 @@ var gulp = require('gulp')
 var concat = require('gulp-concat')
 var imagemin = require('gulp-imagemin')
 var jshint = require('gulp-jshint')
+var nib = require('nib')
 var rename = require('gulp-rename')
 var stylus = require('gulp-stylus')
 var typescript = require('gulp-typescript')
@@ -26,8 +27,7 @@ gulp.task('server', function() {
 
 // compile client scripts
 gulp.task('client', function() {
-  gulp.src('./public/src/ts/*.ts')
-    .pipe(typescript())
+  gulp.src('./public/src/js/*.js')
     .pipe(uglify())
     .pipe(gulp.dest('./public/dist/js'))
 })
@@ -35,8 +35,7 @@ gulp.task('client', function() {
 // compile client stylus
 gulp.task('styles', function() {
   gulp.src('./public/src/styl/styles.styl')
-    .pipe(stylus({compress: true}))
-    .pipe(rename('styles.css'))
+    .pipe(stylus({compress: true, use: nib()}))
     .pipe(gulp.dest('./public/dist/css'))
 })
 
@@ -55,7 +54,7 @@ gulp.task('image', function() {
 // rerun the task when a file changes
 gulp.task('watch', function() {
   gulp.watch('./src/*.js', ['lint', 'server'])
-  gulp.watch('./public/src/ts/*.ts', ['lint', 'client'])
+  gulp.watch('./public/src/js/*.js', ['lint', 'client'])
   gulp.watch('./public/src/styl/*.styl', ['styles'])
   gulp.watch('./public/src/img/*.*', ['image'])
 })

@@ -1,0 +1,1 @@
+void function(o,n,e){var c=io.connect("/texas");c.on("response",function(o){console.log(o)}),c.on("connected",function(o){o&&(console.log("web socket connected"),c.emit("request","test"))})}(window,document);

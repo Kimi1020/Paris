@@ -1,0 +1,1 @@
+void function(n,o,d){}(window,document);

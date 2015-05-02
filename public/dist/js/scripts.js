@@ -1,1 +1,0 @@
-var Texas=function(){function n(n){this.name=n}return n.prototype.say=function(){return this.name},n}();console.log(document.title);

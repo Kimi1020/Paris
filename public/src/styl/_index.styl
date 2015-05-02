@@ -1,0 +1,82 @@
+section#index
+
+  div
+    text-align center
+    display inline-block
+
+    h1
+      font-size 9rem
+      color #004f71
+      shadow-stroke(white)
+      margin 0
+      display inline-block
+      position relative
+
+      &:before
+      &:after
+        position absolute
+        top 0
+        content attr(data-tm)
+        font-size 1.56rem
+        color #297cb8
+        display inline-block
+      &:before
+        left 0
+        transform rotate(-90deg) translate(-100%, -10%)
+        transform-origin 0 100%
+      &:after
+        right 0
+        transform rotate(90deg) translate(100%, -10%)
+        transform-origin 100% 100%
+
+    p
+      margin 1.2rem 0 6rem
+      position relative
+
+      &.shaking
+        animation shaking 200ms ease-in-out 0s 3
+
+      input
+        height 44px
+        width 18rem
+        border 3px solid gray
+        border-radius 7px
+        outline 0 none
+        padding-left .7rem
+        padding-right .7rem
+        vertical-align middle
+        font-size 1.25rem
+        background lightgray
+
+      button
+        height 52px
+        padding-left 1rem
+        padding-right 1rem
+        border 3px solid gray
+        border-radius 7px
+        outline 0 none
+        margin-left .5rem
+        vertical-align middle
+        cursor pointer
+        font-size 1.3rem
+        font-weight bold
+        background rgb(0, 46, 89)
+        color rgb(122, 208, 245)
+
+        &:hover
+          background lighten(rgb(0, 46, 89), 5%)
+        &:active
+          background lighten(rgb(0, 46, 89), 10%)
+          box-shadow inset 0 3px 5px rgba(0, 0, 0, .3)
+
+@keyframes shaking
+  0%
+    transform translateX(0)
+  25%
+    transform translateX(-10px)
+  50%
+    transform translateX(0)
+  75%
+    transform translateX(10px)
+  100%
+    transform translateX(0)
