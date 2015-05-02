@@ -72,7 +72,7 @@ function detectSuit(cards) {
   var result
 
   cards.sort(function(a, b) {
-    return parseInt(a[1], 16) - parseInt(b[1], 16)
+    return (parseInt(a[1], 16) - parseInt(b[1], 16)) || (parseInt(a[0], 10) - parseInt(b[0], 10))
   })
 
   if(result = detectStraightFlush(cards)) {
