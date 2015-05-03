@@ -8,15 +8,15 @@ var jade = require('jade')
 var path = require('path')
 
 // game modules
-var lang = require('./dist/lang')
-var reshuffle = require('./dist/reshuffle')
-var suitSelector = require('./dist/suit-selector')
+var lang = require('./modules/lang')
+var reshuffle = require('./modules/reshuffle')
+var suitSelector = require('./modules/suit-selector')
 
 
 // service setting
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
-app.use(express.static(path.join(__dirname, 'public')))
 
 // template rendering setting
 app.set('views', path.join(__dirname, 'views'))
@@ -25,33 +25,56 @@ app.set('view engine', 'jade')
 
 // routes
 app.get('/', function(req, res) {
-  res.render('index', lang.index)
+  res.render('texas', lang)
 })
-
 app.get('/*', function(req, res) {
   res.redirect('/')
 })
 
-app.post('/room', function(req, res) {
-  lang.room.player = { name: req.body.name, cash: req.body.cash }
-  res.render('room', lang.room)
-})
-
-app.post('/game', function(req, res) {
-  lang.game.player = { name: req.body.name, cash: req.body.cash }
-  res.render('game', lang.game)
-})
-
+players = {}
 
 // web socket
 io.of('/texas').on('connection', function(player) {
-  player.on('request', function(data) {
-    if(data == 'test') {
-      player.emit('response', 'web socket test success')
-    }
+  // home
+  player.on('home.enterRoom', function(data) {
+    console.log('home.enterRoom', data)
+    var playerStatus = players[player.id] = {name: data.name, cash: 10000, id: player.id}
+    player.emit('home.enteredRoom', playerStatus)
   })
 
-  player.emit('connected', true)
+  // room
+  player.on('room.joinGame', function(data) {
+    console.log('room.joinGame', data)
+    var playerStatus = players[data.id]
+    playerStatus.game = data.game
+    playerStatus.seat = data.seat
+    player.emit('room.joinedGame', playerStatus)
+  })
+
+  player.on('room.exitRoom', function(data) {
+    console.log('room.exitRoom', data)
+    players[data.id] = null
+    player.emit('room.exitedRoom', {id: data.id})
+  })
+
+  // game
+  player.on('game.exitGame', function(data) {
+    console.log('game.exitGame', data)
+    var playerStatus = players[data.id]
+    playerStatus.game = -1
+    playerStatus.seat = -1
+    playerStatus.ready = false
+    player.emit('game.exitedGame', playerStatus)
+  })
+
+  player.on('game.startGame', function(data) {
+    console.log('game.startGame', data)
+    var playerStatus = players[data.id]
+    playerStatus.ready = true
+    player.emit('game.startedGame', playerStatus) // TODO: emit on all players ready
+  })
+
+  player.emit('home.connected', {id: player.id})
 })
 
 

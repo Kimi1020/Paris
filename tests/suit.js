@@ -1,5 +1,5 @@
-var reshuffle = require('../dist/reshuffle')
-var suitSelector = require('../dist/suit-selector')
+var reshuffle = require('../modules/reshuffle')
+var suitSelector = require('../modules/suit-selector')
 
 var deck = reshuffle()
 
@@ -24,12 +24,11 @@ function humanize(cards) {
       return TYPES[card[0]] + ' ' + VALUES[card[1]]
     })
   } else {
-    return {
-      grade: GRADES[cards.grade],
-      suit: cards.suit.map(function(card) {
-        return TYPES[card[0]] + ' ' + VALUES[card[1]]
-      })
-    }
+    cards.type = GRADES[cards.grade]
+    cards.cards = cards.suit.map(function(card) {
+      return TYPES[card[0]] + ' ' + VALUES[card[1]]
+    })
+    return cards
   }
 }
 
