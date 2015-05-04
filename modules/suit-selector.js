@@ -75,23 +75,28 @@ function detectSuit(cards) {
     return (parseInt(a[1], 16) - parseInt(b[1], 16)) || (parseInt(a[0], 10) - parseInt(b[0], 10))
   })
 
-  if(result = detectStraightFlush(cards)) {
+  result = detectStraightFlush(cards)
+  if(result) {
     return result
   }
 
-  if(result = detectFour(cards)) {
+  result = detectFour(cards)
+  if(result) {
     return result
   }
 
-  if(result = detectFullhouse(cards)) {
+  result = detectFullhouse(cards)
+  if(result) {
     return result
   }
 
-  if(result = detectFlush(cards)) {
+  result = detectFlush(cards)
+  if(result) {
     return result
   }
 
-  if(result = detectStraight(cards)) {
+  result = detectStraight(cards)
+  if(result) {
     return result
   }
 
