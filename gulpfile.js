@@ -2,16 +2,13 @@
 var gulp = require('gulp')
 
 // require packages
-var concat = require('gulp-concat')
 var developServer = require('gulp-develop-server')
 var imagemin = require('gulp-imagemin')
 var jshint = require('gulp-jshint')
 var minifyCSS = require('gulp-minify-css')
 var rename = require('gulp-rename')
-var sass = require('gulp-sass')
 var sourcemaps = require('gulp-sourcemaps')
 var stylus = require('gulp-stylus')
-var typescript = require('gulp-typescript')
 var uglify = require('gulp-uglify')
 var nib = require('nib')
 
