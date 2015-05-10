@@ -1,0 +1,33 @@
+texas-card
+  width 70px
+  height 90px
+  background white
+  border 2px solid darkgray
+  border-radius 5px
+  display inline-block
+  position relative
+  overflow hidden
+
+  &:unresolved
+    display none
+
+  &[data-card^='1']::shadow span
+  &[data-card^='3']::shadow span
+    color black
+
+  &[data-card^='2']::shadow span
+  &[data-card^='4']::shadow span
+    color red
+    
+  &::shadow span.value
+    position absolute
+    left 7px
+    top 3px
+    font-size 1.75rem
+    
+  &::shadow span.color
+    position absolute
+    left 7px
+    top 0
+    font-size 6rem
+    transform translateX(7px)

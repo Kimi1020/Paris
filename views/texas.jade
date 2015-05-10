@@ -4,6 +4,7 @@ html
     meta(charset='utf-8')
     title #{title}
     link(rel='stylesheet' href='/dist/styles/texas.min.css')
+    link(rel='import' href='/dist/components/card.html' class='component card')
 
   body
     section#home
@@ -31,6 +32,11 @@ html
           span.cash
         button.start #{game.start}
         button.exit #{game.exit}
+
+        div
+          texas-card(data-card='36')
+          texas-card(data-card='29')
+          texas-card(data-card='4c')
 
     script(src='/socket.io/socket.io.js')
     script(src='/dist/scripts/texas.min.js')
