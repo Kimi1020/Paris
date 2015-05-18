@@ -1,0 +1,49 @@
+section#home
+
+  div
+    text-align center
+    display inline-block
+
+    h1
+      font-size 9rem
+      color #004f71
+      shadow-stroke(white)
+      margin 0
+      display inline-block
+      position relative
+
+      &:before
+      &:after
+        position absolute
+        top 0
+        content attr(data-tm)
+        font-size 1.56rem
+        color #297cb8
+        display inline-block
+      &:before
+        left 0
+        transform rotate(-90deg) translate(-100%, -10%)
+        transform-origin 0 100%
+      &:after
+        right 0
+        transform rotate(90deg) translate(100%, -10%)
+        transform-origin 100% 100%
+
+    p
+      margin 1.2rem 0 6rem
+      position relative
+
+      &.shaking
+        animation shaking 200ms ease-in-out 0s 3
+
+@keyframes shaking
+  0%
+    transform translateX(0)
+  25%
+    transform translateX(-10px)
+  50%
+    transform translateX(0)
+  75%
+    transform translateX(10px)
+  100%
+    transform translateX(0)

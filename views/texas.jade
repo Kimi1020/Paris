@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title #{title}
+    link(rel='stylesheet' href='/dist/styles/texas.min.css')
+    link(rel='import' href='/dist/components/card.html' class='component card')
+
+  body
+    section#home
+      div
+        h1(data-tm='#{trademark}') #{title}
+        form(method='post' action='/')
+          p
+            input(name='name' placeholder='#{home.placeholder}' autocomplete='off' autofocus)
+            button #{home.ok}
+
+    section#room
+      div
+        h1 #{nametip}
+          span.name
+        h1 #{cashtip}
+          span.cash
+        button.join #{room.join}
+        button.exit #{room.exit}
+
+    section#game
+      div
+        h1 #{nametip}
+          span.name
+        h1 #{cashtip}
+          span.cash
+        button.start #{game.start}
+        button.exit #{game.exit}
+
+        div
+          texas-card(data-card='36')
+          texas-card(data-card='29')
+          texas-card(data-card='4c')
+
+    script(src='/socket.io/socket.io.js')
+    script(src='/dist/scripts/texas.min.js')
